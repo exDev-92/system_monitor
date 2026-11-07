@@ -1,0 +1,56 @@
+// @see - https://www.electron.build/configuration/configuration
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "ru.erthat.pcmonitor",
+  "asar": true,
+  "productName": "Мониторинг ПК",
+  "directories": {
+    "output": "release/${version}"
+  },
+  "files": [
+    "dist",
+    "dist-electron"
+  ],
+  // Бэкенд кладём рядом с приложением: собранный PyInstaller-ом exe не
+  // требует установленного Python, исходники нужны как запасной путь
+  "extraResources": [
+    {
+      "from": "backend/dist/sysmon-backend",
+      "to": "backend/sysmon-backend"
+    },
+    {
+      "from": "backend",
+      "to": "backend",
+      "filter": ["*.py"]
+    },
+    // Скачивает установщик PawnIO у автора: из установщика и из настроек
+    {
+      "from": "build/pawnio-install.ps1",
+      "to": "pawnio-install.ps1"
+    }
+  ],
+  // macOS и Linux не поддерживаются: датчики читаются через PawnIO и WMI,
+  // сеть и диски — через средства Windows. Таргеты из шаблона убраны.
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "artifactName": "PCMonitor-Windows-${version}-Setup.${ext}",
+    // Датчики уровня ядра (температуры, вентиляторы, SMART) читаются через
+    // PawnIO — он отдаёт данные только процессу с правами администратора
+    "requestedExecutionLevel": "requireAdministrator"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": false,
+    // Проверка PawnIO в конце установки
+    "include": "build/installer.nsh"
+  }
+}

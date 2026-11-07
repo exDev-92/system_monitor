@@ -1,0 +1,12 @@
+/* Базовый минимум — вся раскладка живёт в App.css и designs/*.css */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0b0b;
+  color: #d2d4d6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}

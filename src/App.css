@@ -1,0 +1,108 @@
+/* ── Оболочка приложения ─────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  background: #0a0b0b;
+}
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  color: #d2d4d6;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  /* цифры не должны прыгать по ширине при обновлении */
+  font-variant-numeric: tabular-nums;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+}
+
+/* Панель показаний ничего не принимает от мыши — окно тянется отовсюду. */
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #0a0b0b;
+  -webkit-app-region: drag;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Кадр рисуется в логических размерах макета, zoom подгоняет его под окно. */
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.drag-region { -webkit-app-region: drag; }
+
+/* ── Плавающие кнопки ────────────────────────────────────────── */
+.ui-controls {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #2a2d2f;
+  background: rgba(12, 13, 13, 0.86);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  -webkit-app-region: no-drag;
+}
+
+.app:hover .ui-controls,
+.ui-controls:focus-within { opacity: 1; }
+
+.ui-pill {
+  min-width: 26px;
+  height: 22px;
+  padding: 0 7px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #8d9295;
+  transition: background 0.14s, color 0.14s;
+}
+
+.ui-pill:hover { background: #24272a; color: #e2e4e5; }
+.ui-pill.active { background: #2c3033; color: #e7e9ea; }
+
+.ui-sep {
+  width: 1px;
+  height: 14px;
+  background: #2a2d2f;
+  margin: 0 2px;
+}
+
+/* Бэкенд молчит: цифры на экране больше не текущие. */
+.ui-stale {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  z-index: 50;
+  padding: 6px 12px;
+  background: #1a1b1c;
+  border: 1px solid oklch(0.76 0.11 76);
+  color: oklch(0.76 0.11 76);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}

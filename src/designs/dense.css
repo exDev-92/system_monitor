@@ -1,0 +1,408 @@
+/* ── 1a — ПЛОТНЫЙ ПУЛЬТ ──────────────────────────────────────── */
+
+.d-dense {
+  --bg:               #0f1011;
+  --bar-bg:           #131415;
+  --hairline:         #1e2022;
+  --well:             #17191a;
+  --graph-well:       #0c0d0e;
+  --ring-track-outer: #191c1d;
+  --ring-track-inner: #161819;
+  --text:             #c9ccce;
+  --text-hi:          #dfe1e3;
+  --dim:              #74797d;
+  --faint:            #4e5357;
+  --micro:            #575c60;
+
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+  display: grid;
+  grid-template-rows: 40px 1fr 214px;
+  overflow: hidden;
+}
+
+.d-dense.half { grid-template-rows: 38px 1fr; }
+
+.d-dense .ring-overlay { gap: 4px; }
+
+/* верхняя строка */
+.dc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: var(--bar-bg);
+  border-bottom: 1px solid var(--hairline);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #6a6f73;
+}
+
+.dc-top-group { display: flex; gap: 26px; }
+.dc-host  { color: var(--text); }
+.dc-clock { color: var(--text-hi); font-size: 14px; }
+
+.d-dense.half .dc-top { padding: 0 14px; font-size: 11px; letter-spacing: 0.12em; }
+.d-dense.half .dc-clock { font-size: 13px; }
+
+/* середина */
+.dc-mid {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 1.1fr 1.1fr 0.85fr;
+  gap: 1px;
+  background: var(--hairline);
+}
+
+.dc-panel {
+  background: var(--bg);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 16px;
+}
+
+.dc-side {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--hairline);
+}
+
+.dc-sub {
+  background: var(--bg);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 12px;
+}
+
+.dc-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+}
+
+.dc-head-meta { color: var(--faint); }
+
+/* кольцо */
+.dc-ring-row {
+  flex: 0 0 auto;
+  height: 262px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dc-ring { height: 100%; aspect-ratio: 1; }
+
+.dc-ring-value { font-size: 58px; line-height: 0.82; font-weight: 500; }
+.dc-ring-label { font-size: 10px; letter-spacing: 0.18em; color: var(--micro); }
+
+/* строка показателей */
+.dc-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.dc-stat-group { display: flex; gap: 26px; }
+.dc-stat-group.right { text-align: right; }
+.dc-stat-v { font-size: 24px; }
+.dc-stat-l { font-size: 10px; letter-spacing: 0.16em; color: var(--faint); }
+
+/* нижний блок панели */
+.dc-block {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dc-block-label { font-size: 10px; letter-spacing: 0.18em; color: var(--micro); }
+.dc-threads { flex: 1; min-height: 76px; }
+
+.dc-block-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #43484b;
+}
+
+/* видеокарта */
+.dc-gpu-bottom {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dc-meter-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--micro);
+  margin-bottom: 6px;
+}
+
+.dc-meter-head b { color: var(--text); font-weight: 400; }
+
+.dc-engines {
+  flex: 1;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  align-items: stretch;
+}
+
+.dc-engine { display: flex; flex-direction: column; gap: 6px; }
+
+.dc-engine-track {
+  flex: 1;
+  min-height: 0;
+  background: var(--well);
+  display: flex;
+  align-items: flex-end;
+}
+
+.dc-engine-fill { width: 100%; }
+
+.dc-engine-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--micro);
+}
+
+.dc-engine-foot b { color: var(--text); font-weight: 400; }
+
+.dc-gpu-foot { display: flex; gap: 26px; font-size: 11px; color: var(--micro); }
+
+/* оперативная память */
+.dc-ram-row { display: flex; align-items: baseline; gap: 10px; }
+.dc-ram-used  { font-size: 44px; font-weight: 500; }
+.dc-ram-total { font-size: 15px; color: #62676b; }
+.dc-ram-pct   { margin-left: auto; font-size: 24px; }
+
+.dc-kv {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--micro);
+}
+
+.dc-kv b { color: var(--text); font-weight: 400; }
+
+/* накопители */
+.dc-disk { display: flex; flex-direction: column; min-height: 0; gap: 5px; }
+
+.dc-disk-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #82878b;
+  gap: 12px;
+}
+
+.dc-disk-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dc-disk-head b { color: var(--text); font-weight: 400; white-space: nowrap; }
+
+.dc-disk-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--micro);
+  white-space: nowrap;
+}
+
+.dc-disk-foot b { color: #9aa0a4; font-weight: 400; }
+
+/* сеть */
+.dc-net-nums { display: flex; gap: 28px; }
+.dc-net-v { font-size: 30px; color: var(--text-hi); }
+.dc-net-l { font-size: 10px; letter-spacing: 0.16em; color: var(--faint); }
+
+.dc-graph {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--hairline);
+  background: var(--graph-well);
+}
+
+.dc-note { font-size: 11px; color: var(--micro); }
+
+/* нижняя полоса */
+.dc-bottom {
+  background: var(--bar-bg);
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 1px;
+}
+
+.dc-bcell {
+  background: var(--bar-bg);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 12px;
+}
+
+.dc-fans { display: grid; min-height: 0; gap: 18px; }
+.dc-fan { display: flex; flex-direction: column; min-height: 0; gap: 6px; }
+.dc-fan-name { font-size: 10px; letter-spacing: 0.14em; color: var(--micro); }
+.dc-fan-rpm { font-size: 26px; color: var(--text-hi); }
+.dc-fan-pct { font-size: 10px; color: #4a4f53; }
+
+.dc-temp-graph {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+}
+
+.dc-legend {
+  display: flex;
+  gap: 18px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--micro);
+}
+
+.dc-states { display: flex; flex-direction: column; min-height: 0; gap: 8px; }
+
+.dc-state { display: flex; align-items: center; gap: 12px; font-size: 13px; }
+.dc-state-dot { width: 8px; height: 8px; flex: 0 0 auto; }
+.dc-state-label { color: #9aa0a4; flex: 1; }
+.dc-state-value { letter-spacing: 0.12em; font-size: 12px; }
+
+.dc-foot-note {
+  margin-top: auto;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #43484b;
+}
+
+/* ── половина экрана ─────────────────────────────────────────── */
+.dc-modules {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: 1.25fr 1.25fr 1fr 1fr;
+  gap: 1px;
+  background: var(--hairline);
+}
+
+.dch-row {
+  background: var(--bg);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.dch-ring { height: 100%; aspect-ratio: 1; }
+.dch-ring-value { font-size: 54px; line-height: 0.82; }
+.dch-ring-label { font-size: 9px; letter-spacing: 0.18em; color: var(--micro); }
+
+.d-dense.half .ring-overlay { gap: 3px; }
+
+.dch-col { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+.dch-title { font-size: 11px; letter-spacing: 0.2em; color: var(--dim); }
+
+.dch-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 16px; }
+.dch-stat-v { font-size: 24px; }
+.dch-stat-l { font-size: 9px; letter-spacing: 0.16em; color: var(--faint); }
+
+.dch-threads { height: 42px; }
+.dch-vram { display: flex; flex-direction: column; gap: 5px; }
+
+.dch-vram-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--micro);
+}
+
+.dch-vram-head b { color: var(--text); font-weight: 400; }
+
+.dch-block {
+  background: var(--bg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 10px;
+}
+
+.dch-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--dim);
+}
+
+.dch-head b { color: var(--text); font-weight: 400; letter-spacing: 0; }
+.dch-head span.meta { color: var(--faint); }
+
+.dch-fans {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--micro);
+  margin-top: auto;
+}
+
+.dch-fans b { color: var(--text); font-weight: 400; }
+
+.dch-disk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  color: #82878b;
+}
+
+.dch-disk-name {
+  width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dch-disk-bar { flex: 1; min-width: 0; }
+.dch-disk-free { width: 76px; text-align: right; color: #9aa0a4; white-space: nowrap; }
+.dch-disk-rw { color: var(--text); width: 86px; text-align: right; }
+.dch-disk-temp { width: 46px; text-align: right; }
+
+.dch-net { display: flex; gap: 32px; align-items: flex-end; margin-top: auto; }
+.dch-net-v { font-size: 26px; color: var(--text-hi); }
+.dch-net-l { font-size: 10px; letter-spacing: 0.14em; color: var(--faint); }
+
+.dch-net-note {
+  margin-left: auto;
+  text-align: right;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}

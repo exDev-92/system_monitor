@@ -1,0 +1,73 @@
+/* ── Общие примитивы всех трёх вариантов ─────────────────────── */
+
+.ring {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+}
+
+.ring > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.ring-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.spark {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.bar {
+  width: 100%;
+  background: var(--well);
+  overflow: hidden;
+}
+
+.bar-fill { height: 100%; }
+
+.threads {
+  display: grid;
+  align-items: end;
+  min-height: 0;
+}
+
+.thread-track {
+  height: 100%;
+  background: var(--well);
+  display: flex;
+  align-items: flex-end;
+}
+
+.thread-fill { width: 100%; }
+
+.fan-dial {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+.fan-dial > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.fan-dial-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+}

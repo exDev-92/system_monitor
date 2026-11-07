@@ -1,0 +1,320 @@
+/* ── 1c — ИНДУСТРИАЛЬНЫЙ HUD ─────────────────────────────────── */
+
+.d-hud {
+  --bg:               #0c0d0d;
+  --panel:            #101112;
+  --hairline:         #1c1e1f;
+  --well:             #171a1b;
+  --ring-track-outer: #1c1f20;
+  --ring-track-inner: #171a1b;
+  --text:             #cbcdce;
+  --text-hi:          #e2e4e5;
+  --value:            #e7e9ea;
+  --dim:              #74797d;
+  --faint:            #5b6064;
+  --meta:             #4d5255;
+  --muted:            #6b7074;
+
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow Condensed', 'IBM Plex Sans', system-ui, sans-serif;
+  display: grid;
+  /* нижняя полоса по содержимому: лишняя высота уходит панелям, а много дисков не обрежутся */
+  grid-template-rows: 46px minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.d-hud.half { grid-template-rows: 42px 1fr; }
+
+.d-hud .ring-overlay { gap: 3px; }
+
+/* верхняя строка */
+.hud-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  border-bottom: 1px solid var(--hairline);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #6c7175;
+}
+
+.hud-top-group { display: flex; gap: 28px; }
+.hud-host { color: var(--text); }
+.hud-clock { color: var(--text-hi); font-size: 15px; }
+
+.d-hud.half .hud-top { padding: 0 18px; font-size: 11px; }
+.d-hud.half .hud-clock { font-size: 14px; }
+
+/* середина */
+.hud-mid {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 1fr 1fr 0.8fr;
+  gap: 22px;
+  padding: 26px 22px;
+}
+
+.hud-panel {
+  border: 1px solid var(--hairline);
+  background: var(--panel);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.hud-head {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+}
+
+.hud-head-meta { color: var(--meta); }
+
+.hud-ring { width: 268px; height: 268px; }
+.hud-ring-value { font-size: 83px; line-height: 0.82; font-weight: 500; color: var(--value); }
+
+.hud-ring-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  color: #71767a;
+}
+
+.hud-stats {
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hud-stat-v { font-size: 34px; line-height: 1; }
+
+.hud-stat-l {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.hud-history {
+  align-self: stretch;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* Одна высота у обеих панелей: нижние блоки ЦП и видеокарты стоят на одной линии. */
+.hud-block {
+  align-self: stretch;
+  flex: 0 0 136px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hud-threads { flex: 1; min-height: 0; }
+
+.hud-engines {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+
+.hud-engines b { color: var(--text); font-weight: 400; }
+
+.hud-meter {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 7px;
+}
+
+.hud-meter-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.hud-meter-head b { color: var(--text); font-weight: 400; }
+
+/* правая колонка */
+.hud-side { display: grid; min-height: 0; grid-template-rows: auto minmax(0, 1fr); gap: 22px; }
+
+.hud-sub {
+  border: 1px solid var(--hairline);
+  background: var(--panel);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.hud-sub-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+}
+
+.hud-mem-row { display: flex; align-items: baseline; gap: 10px; }
+.hud-mem-used { font-size: 64px; line-height: 0.85; }
+.hud-mem-total { font-size: 20px; color: var(--muted); }
+.hud-mem-pct { margin-left: auto; font-size: 34px; }
+
+.hud-net { display: flex; gap: 30px; }
+.hud-net-v { font-size: 46px; line-height: 1; }
+
+.hud-net-l {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.hud-graph {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--hairline);
+  background: var(--bg);
+}
+
+/* нижняя полоса */
+.hud-bottom {
+  border-top: 1px solid var(--hairline);
+  display: grid;
+  min-height: 0;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 22px;
+  padding: 16px 22px 18px;
+}
+
+.hud-bcell { display: flex; flex-direction: column; min-height: 0; gap: 12px; }
+.hud-fans { display: grid; min-height: 0; gap: 16px; }
+.hud-fan { display: flex; flex-direction: column; min-height: 0; align-items: center; gap: 4px; }
+
+.hud-fan-name {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.d-hud .fan-dial-value {
+  padding-bottom: 7px;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--text-hi);
+}
+
+.hud-disk-row { display: flex; align-items: center; gap: 16px; }
+
+.hud-disk-name {
+  font-size: 20px;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hud-disk-bar { flex: 1; min-width: 0; }
+
+.hud-disk-space {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  width: 200px;
+  text-align: right;
+  color: #9ba0a4;
+  white-space: nowrap;
+}
+
+.hud-disk-rw {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  width: 130px;
+  text-align: right;
+  color: #b6babd;
+}
+
+.hud-disk-temp {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 14px;
+  width: 54px;
+  text-align: right;
+}
+
+.hud-empty {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--meta);
+}
+
+/* ── половина экрана ─────────────────────────────────────────── */
+.hud-stack {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  gap: 11px;
+  padding: 14px;
+}
+
+.hud-pair { display: grid; min-height: 0; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.d-hud.half .hud-panel { padding: 13px 15px; gap: 6px; }
+.d-hud.half .hud-head { font-size: 11px; }
+.d-hud.half .hud-ring { width: 168px; height: 168px; }
+.d-hud.half .hud-ring-value { font-size: 50px; }
+.d-hud.half .hud-ring-label { font-size: 9px; }
+.d-hud.half .hud-stat-v { font-size: 26px; }
+.d-hud.half .hud-stat-l { font-size: 9px; }
+.d-hud.half .hud-stats > div { text-align: center; }
+
+.d-hud.half .hud-sub { padding: 13px 15px; gap: 7px; }
+.d-hud.half .hud-sub-title { font-size: 11px; }
+.d-hud.half .hud-net-v { font-size: 38px; }
+.d-hud.half .hud-net-l { font-size: 9px; }
+.d-hud.half .hud-net { gap: 26px; }
+.d-hud.half .hud-fans { grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.d-hud.half .fan-dial-value { padding-bottom: 5px; font-size: 16px; }
+.d-hud.half .hud-fan-name { font-size: 9px; }
+.d-hud.half .hud-disk-name { font-size: 18px; width: 160px; }
+.d-hud.half .hud-disk-space { font-size: 12px; width: 96px; }
+.d-hud.half .hud-disk-rw { font-size: 13px; width: 116px; }
+.d-hud.half .hud-disk-temp { font-size: 13px; width: 48px; }
+.hud-grow { flex: 1; }
+
+.hud-kv {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--dim);
+}
+
+.hud-kv b { color: var(--text); font-weight: 400; letter-spacing: 0; }
